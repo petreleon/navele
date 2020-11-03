@@ -74,7 +74,8 @@ export default (canvas: HTMLCanvasElement) => {
   ButtonSprite.y = app.screen.height / 2 + 80;
   ButtonSprite.buttonMode = true;
   ButtonSprite.interactive = true;
-  function startJoc(conn: Peer.DataConnection) {
+  function startJoc(conn_: Peer.DataConnection) {
+    conn = conn_;
     app.stage.removeChild(ConnectCointainer);
     const gameContainer = new PIXI.Container();
     app.stage.addChild(gameContainer);
@@ -85,9 +86,8 @@ export default (canvas: HTMLCanvasElement) => {
     startJoc(conn);
   });
   peer.on('connection', (conn_) => {
-    conn = conn_;
-    console.log(conn.peer);
-    startJoc(conn);
+    console.log(conn_.peer);
+    startJoc(conn_);
   });
   ConnectCointainer.addChild(ButtonSprite);
 };
