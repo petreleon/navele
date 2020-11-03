@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "prepare": "xcopy /E /I /y src\\assets public\\assets",
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "test:unit": "vue-cli-service test:unit",
@@ -10,8 +11,13 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
+    "@types/sjcl": "^1.0.29",
     "core-js": "^3.6.5",
+    "peerjs": "^1.3.1",
+    "pixi-text-input": "^1.0.5",
+    "pixi.js": "^5.3.3",
     "register-service-worker": "^1.7.1",
+    "sjcl": "^1.0.8",
     "vue": "^3.0.0",
     "vue-class-component": "^8.0.0-0",
     "vue-router": "^4.0.0-0",
@@ -20,6 +26,7 @@
   "devDependencies": {
     "@types/chai": "^4.2.11",
     "@types/mocha": "^5.2.4",
+    "@types/pixi.js": "^5.0.0",
     "@typescript-eslint/eslint-plugin": "^2.33.0",
     "@typescript-eslint/parser": "^2.33.0",
     "@vue/cli-plugin-babel": "~4.5.0",
@@ -36,6 +43,7 @@
     "@vue/eslint-config-typescript": "^5.0.2",
     "@vue/test-utils": "^2.0.0-0",
     "chai": "^4.1.2",
+    "copyfiles": "^2.4.0",
     "eslint": "^6.7.2",
     "eslint-plugin-import": "^2.20.2",
     "eslint-plugin-vue": "^7.0.0-0",
