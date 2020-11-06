@@ -21,9 +21,7 @@ export default (canvas: HTMLCanvasElement) => {
   }
   const ID: string = makeString(5);
   const peer = new Peer(ID, {
-    host: '192.168.0.125',
-    key: 'game',
-    port: 2020,
+    host: 'https://peerjs-navele.herokuapp.com/'
   });
   peer.on('open', (id: string) => {
     console.log(`My peer ID is: ${id}`);
