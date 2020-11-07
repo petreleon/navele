@@ -21,7 +21,7 @@ export default (canvas: HTMLCanvasElement) => {
   }
   const ID: string = makeString(5);
   const peer = new Peer(ID, {
-    host: 'peerjs-navele.herokuapp.com',
+    host: 'localhost',
     port: 9000,
     key: 'game',
     path: '/',
@@ -251,7 +251,8 @@ export default (canvas: HTMLCanvasElement) => {
         });
       }
     }
-
+    let destroyedByYou = 0;
+    let destroyedByEnemy = 0;
     conn.on('data', (data: {type: 'destroy'; coordinates: {x: number; y: number}} | {type: 'response'; isHurted: boolean}) => {
       console.log(data);
       if (data.type === 'destroy' && (whoMoves === 'unknown' || whoMoves === 'another')) {
@@ -261,13 +262,24 @@ export default (canvas: HTMLCanvasElement) => {
         if (yourDetails[data.coordinates.y][data.coordinates.x].isNaval) {
           yourDetails[data.coordinates.y][data.coordinates.x].toDestroyed();
           conn.send({ type: 'response', isHurted: true });
+          destroyedByEnemy += 1;
+          if (destroyedByEnemy === max) {
+            alert('You lost!');
+          }
         } else {
+          yourDetails[data.coordinates.y][data.coordinates.x].toUnknown();
           conn.send({ type: 'response', isHurted: false });
         }
         whoMoves = 'me';
       }
       if (data.type === 'response') {
-        if (data.isHurted) fighterDetails[latestCoordinates.y][latestCoordinates.x].toDestroyed();
+        if (data.isHurted) {
+          fighterDetails[latestCoordinates.y][latestCoordinates.x].toDestroyed();
+          destroyedByYou += 1;
+          if (destroyedByYou === max) {
+            alert('You won!');
+          }
+        }
         if (!data.isHurted) fighterDetails[latestCoordinates.y][latestCoordinates.x].toWater();
       }
     });
